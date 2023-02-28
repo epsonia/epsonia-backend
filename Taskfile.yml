@@ -1,0 +1,15 @@
+version: "3"
+
+vars:
+  NAME: epsonia-backend
+ 
+tasks: 
+  run:
+    desc: Run {{.NAME}}
+    cmds:
+      - npx ts-node src/main.ts
+  pris:
+    desc: Prisma stuff
+    cmds:
+      - npx prisma migrate dev --name init
+      - npx prisma generate
