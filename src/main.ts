@@ -14,6 +14,14 @@ app.get("/teams", async (req, res) => {
   res.json(teams);
 });
 
+app.get("/teams/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const getTeam = await prisma.team.findUnique({ where: { id: Number(id) } });
+
+  res.json(getTeam);
+});
+
 app.post("/teams", async (req, res) => {
   const { name } = req.body;
 
@@ -27,6 +35,40 @@ app.post("/teams", async (req, res) => {
   });
 
   res.json(newTeam);
+});
+
+app.put("/teams/:id/linux_score", async (req, res) => {
+  const { id } = req.params;
+  const { new_score } = req.body;
+
+  console.log("Updating Linux Score to " + new_score);
+
+  const updateScore = await prisma.team.update({
+    where: { id: Number(id) },
+    data: {
+      linuxScore: new_score,
+    },
+  });
+
+  res.json(updateScore);
+});
+
+app.put("/teams/:id/windows_score", async (req, res) => {
+  const { id } = req.params;
+  const { new_score } = req.body;
+
+  console.log("Updating windows score to " + new_score);
+
+  const updateScore = await prisma.team.update({
+    where: {
+      id: Number(id),
+    },
+    data: {
+      windowsScore: new_score,
+    },
+  });
+
+  res.json(updateScore);
 });
 
 app.delete("/teams/:id", async (req, res) => {
