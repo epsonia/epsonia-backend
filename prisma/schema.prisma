@@ -7,10 +7,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Competition {
+  id            Int    @id @default(autoincrement())
+  teams         Team[]
+  teamId        Int    @unique
+  winningTeamId Int
+}
+
 model Team {
-  id           Int    @id @default(autoincrement())
-  name         String
-  totalScore   Int
-  windowsScore Int
-  linuxScore   Int
+  id            Int          @id @default(autoincrement())
+  name          String
+  totalScore    Int
+  windowsScore  Int
+  linuxScore    Int
+  Competition   Competition? @relation(fields: [competitionId], references: [id])
+  competitionId Int?
 }
