@@ -11,8 +11,9 @@ datasource db {
 }
 
 model Team {
-  id       Int @id @default(autoincrement())
-  score    Int
+  id       Int    @id @default(autoincrement())
+  name     String
+  score    Int    @default(0)
   // winScore Int -- Not really a thing in Epsonia YET
-  linScore Int
+  linScore Int    @default(0)
 }
